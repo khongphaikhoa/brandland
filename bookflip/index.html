@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brand Land</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <!-- Settings Button -->
+    <button id="settingsBtn" class="settings-btn" title="Settings">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path
+          d="M12 1v6m0 10v6m11-7h-6m-10 0H1m15.5-10a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0zm-14 14a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"></path>
+      </svg>
+    </button>
+
+    <!-- Fullscreen Toggle -->
+    <button id="fullscreenBtn" class="fullscreen-btn" title="Toggle Fullscreen">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2">
+        <path
+          d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+      </svg>
+    </button>
+    <!-- Theme Toggle -->
+    <button id="themeBtn" class="theme-btn" title="Toggle Theme">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    </button>
+
+    <div class="container">
+      <header>
+        <h1 class="glass-title">Welcome to Brand Land !</h1>
+        <p class="glass-subtitle"><strong>A tale of logos, laughs and lies.</strong></p>
+      </header>
+
+      <!-- Hidden Upload Section (accessible via settings) -->
+      <div class="upload-section" id="uploadSection" style="display: none">
+        <div class="file-input-container">
+          <input type="file" id="photoInput" accept="image/*" multiple />
+          <label for="photoInput" class="file-input-label">
+            <span class="upload-icon">📸</span>
+            <span class="upload-text">Choose Photos</span>
+          </label>
+        </div>
+        <div class="photo-count">
+          <span id="photoCount">0 photos selected</span>
+        </div>
+        <button id="clearPhotos" class="clear-btn" style="display: none">Clear All Photos</button>
+      </div>
+
+      <div class="preview-section" id="previewSection" style="display: none">
+        <div id="imagePreview" class="image-preview"></div>
+      </div>
+
+      <div class="book-section">
+        <div class="book-container">
+          <div id="bookContainer" class="book-wrapper">
+            <!-- Book pages will be dynamically generated here -->
+          </div>
+        </div>
+        <div class="book-controls">
+          <button id="prevPage" class="control-btn">GO BACK</button>
+          <span id="pageInfo" class="page-info"></span>
+          <button id="nextPage" class="control-btn">NEXT</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Panel Overlay -->
+    <div id="settingsPanel" class="settings-panel">
+      <div class="settings-content">
+        <div class="settings-header">
+          <h2>Settings</h2>
+          <button id="closeSettings" class="close-btn">×</button>
+        </div>
+
+        <div class="settings-body">
+          <div class="setting-group">
+            <h3>📸 Photo Management</h3>
+            <div class="setting-item">
+              <button id="uploadPhotosBtn" class="setting-btn">
+                <span class="btn-icon">🖼️</span>
+                <span class="btn-text">Upload Photos</span>
+              </button>
+            </div>
+            <div class="setting-item">
+              <button id="clearAllBtn" class="setting-btn danger">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Clear All Photos</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <h3>🎨 Appearance</h3>
+            <div class="setting-item">
+              <label class="toggle-label">
+                <span>Dark Mode</span>
+                <input type="checkbox" id="darkModeToggle" class="toggle-input" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <label class="toggle-label">
+                <span>Glass Effect</span>
+                <input type="checkbox" id="glassToggle" class="toggle-input" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <label class="toggle-label">
+                <span>Animations</span>
+                <input type="checkbox" id="animationsToggle" class="toggle-input" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <h3>📖 Book Settings</h3>
+            <div class="setting-item">
+              <label class="setting-label">
+                <span>Flip Speed</span>
+                <input
+                  type="range"
+                  id="flipSpeed"
+                  min="500"
+                  max="2000"
+                  value="1000"
+                  class="setting-slider" />
+                <span class="setting-value">1000ms</span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <label class="toggle-label">
+                <span>Show Shadows</span>
+                <input type="checkbox" id="shadowToggle" class="toggle-input" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <label class="toggle-label">
+                <span>Auto-Size</span>
+                <input type="checkbox" id="autoSizeToggle" class="toggle-input" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <h3>🔧 Advanced</h3>
+            <div class="setting-item">
+              <button id="exportBtn" class="setting-btn">
+                <span class="btn-icon">💾</span>
+                <span class="btn-text">Export Configuration</span>
+              </button>
+            </div>
+            <div class="setting-item">
+              <button id="resetBtn" class="setting-btn">
+                <span class="btn-icon">🔄</span>
+                <span class="btn-text">Reset to Default</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fullscreen Overlay -->
+    <div id="fullscreenOverlay" class="fullscreen-overlay">
+      <div class="fullscreen-content">
+        <button id="exitFullscreen" class="exit-fullscreen-btn" title="Exit Fullscreen">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2">
+            <path
+              d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+          </svg>
+        </button>
+        <div id="fullscreenBook" class="fullscreen-book-container">
+          <!-- Book will be moved here in fullscreen -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Book-flip library from CDN -->
+    <script src="https://unpkg.com/book-flip@latest/dist/js/page-flip.browser.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
